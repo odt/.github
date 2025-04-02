@@ -1,1 +1,2 @@
-# .github
+- オーガニゼーション内で[コミュニティ健全性ファイル](https://docs.github.com/ja/communities/setting-up-your-project-for-healthy-contributions/creating-a-default-community-health-file)を置くためのリポジトリ
+  - 例 オーガニゼーション共通のPRテンプレート
