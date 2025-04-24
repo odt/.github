@@ -1,0 +1,20 @@
+name: PRにレビュアーが振られたらAssigneeにも振る
+
+on:
+  pull_request:
+    types: [review_requested]
+
+jobs:
+  assign-assignee-when-pr-is-ready-for-review:
+    runs-on: ubuntu-latest
+    # github-copilot がAssigneeにならないようにはじく
+    if: ${{ github.event.requested_reviewer != null && github.event.requested_reviewer != 'github-copilot' }}
+    steps:
+      - name: Assign reviewer as assignee
+        run: >
+          gh pr edit ${{ github.event.number }}
+          --remove-assignee $(gh pr view ${{ github.event.number }} --json assignees -q ".assignees[].login" | jq -r '.[]' | tr '\n' ',' | sed 's/,$//')
+          --add-assignee ${{ github.event.requested_reviewer.login }}
+          --repo $GITHUB_REPOSITORY
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
