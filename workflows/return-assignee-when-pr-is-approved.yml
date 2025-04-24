@@ -1,0 +1,19 @@
+name: PRが承認されたらAssigneeをownerに戻す
+
+on:
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  return-assignee-when-pr-is-approved:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.review.state == 'approved' }}
+    steps:
+      - name: Assign owner as assignee
+        run: >
+          gh pr edit ${{ github.event.pull_request.number }}
+          --remove-assignee ${{ github.event.pull_request.assignee.login }}
+          --add-assignee ${{ github.event.pull_request.user.login }}
+          --repo $GITHUB_REPOSITORY
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
