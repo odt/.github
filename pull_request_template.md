@@ -1,5 +1,3 @@
-<!-- I want to review in Japanese. -->
-
 <!-- 関連Issue -->
 
 ## 目的
@@ -23,5 +21,3 @@
 <!-- 必要に応じて受入基準を確かめるための手順を補足する -->
 
 ## 他
-
-<!-- I want to review in Japanese. -->
